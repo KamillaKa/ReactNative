@@ -1,18 +1,46 @@
-import {Image, Text, View} from 'react-native';
+import {Card, Text, ListItem, Icon} from '@rneui/themed';
+import {Video, ResizeMode} from 'expo-av';
 import {MediaItemWithOwner} from '../types/DBTypes';
 
-const Single = ({route}: {route: {params: MediaItemWithOwner}}) => {
-  const item = route.params;
+const Single = ({route}: any) => {
+  const item: MediaItemWithOwner = route.params;
+  const [fileType, fileFormat] = item.media_type.split('&#x2F;');
+
   return (
-    <View>
-      <Text>{item.title}</Text>
-      <Image style={{height: 500}} source={{uri: 'http:' + item.filename}} />
-      <Text>{item.description}</Text>
-      <Text>{new Date(item.created_at).toLocaleString('fi-FI')}</Text>
-      <Text>Owner: {item.username}</Text>
-      <Text>Media type: {item.media_type.split('&#x2F;')[0]}</Text>
-      <Text>File size: {Math.round(item.filesize / 1024)} kB</Text>
-    </View>
+    <Card>
+      <Card.Title>{item.title}</Card.Title>
+      {fileType === 'image' ? (
+        <Card.Image
+          style={{height: 400}}
+          resizeMode="contain"
+          source={{uri: 'http:' + item.filename}}
+        />
+      ) : (
+        <Video
+          style={{height: 400}}
+          source={{uri: 'http:' + item.filename}}
+          useNativeControls
+          resizeMode={ResizeMode.CONTAIN}
+        />
+      )}
+      <ListItem>
+        <Text>{item.description}</Text>
+      </ListItem>
+      <ListItem>
+        <Icon name="today" />
+        <Text>{new Date(item.created_at).toLocaleString('fi-FI')}</Text>
+      </ListItem>
+      <ListItem>
+        <Icon name="person" />
+        <Text>{item.username}</Text>
+      </ListItem>
+      <ListItem>
+        <Icon name="image" />
+        <Text>
+          {fileType} / {fileFormat}, {Math.round(item.filesize / 1024)} kB
+        </Text>
+      </ListItem>
+    </Card>
   );
 };
 
