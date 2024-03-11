@@ -8,7 +8,6 @@ import {
   Keyboard,
 } from 'react-native';
 import {MediaItemWithOwner} from '../types/DBTypes';
-import Ratings from '../components/Ratings';
 import Comments from '../components/Comments';
 import Likes from '../components/Likes';
 
@@ -56,7 +55,6 @@ const Single = ({route}: any) => {
                 {fileType} / {fileFormat}, {Math.round(item.filesize / 1024)} kB
               </Text>
             </ListItem>
-            <Ratings item={item} size={35} />
             <Comments item={item} />
           </Card>
         </TouchableWithoutFeedback>

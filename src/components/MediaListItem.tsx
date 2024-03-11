@@ -3,7 +3,6 @@ import {Card, Icon, ListItem, Button, Avatar, Text} from '@rneui/base';
 import {MediaItemWithOwner} from '../types/DBTypes';
 import {useUserContext} from '../hooks/ContextHooks';
 import Likes from './Likes';
-import Ratings from './Ratings';
 
 type Props = {
   item: MediaItemWithOwner;
@@ -80,7 +79,6 @@ const MediaListItem = ({item, navigation}: Props) => {
 
         <Likes item={item} />
       </ListItem.Swipeable>
-      <Ratings item={item} size={25} />
     </Card>
   );
 };

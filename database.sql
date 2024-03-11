@@ -1,7 +1,7 @@
 -- Drop the database if it exists and then create it
-DROP DATABASE IF EXISTS Tassututka;
-CREATE DATABASE Tassututka;
-USE Tassututka;
+DROP DATABASE IF EXISTS mediasharingapp;
+CREATE DATABASE mediasharingapp;
+USE mediasharingapp;
 
 -- Create the tables
 
@@ -31,6 +31,7 @@ CREATE TABLE MediaItems (
     place_id INT NOT NULL,
     filename VARCHAR(255) NOT NULL,
     filesize INT NOT NULL,
+    media_type VARCHAR(255) NOT NULL,
     rating INT NOT NULL CHECK (rating BETWEEN 1 AND 5),
     title VARCHAR(255) NOT NULL,
     description TEXT,
@@ -85,10 +86,10 @@ INSERT INTO Users (username, password, email, user_level_id) VALUES
 INSERT INTO Places (place_name) VALUES ('Central Park'), ('Golden Gate Bridge'), ('Eiffel Tower');
 
 -- Insert data into MediaItems
-INSERT INTO MediaItems (user_id, place_id, filename, filesize, rating, title, description) VALUES
-(1, 1, 'central_park_photo.jpg', 2048, 5, 'Central Park in Spring', 'A beautiful view of Central Park in spring.'),
-(2, 2, 'golden_gate_bridge_photo.jpg', 3072, 4, 'Golden Gate at Sunset', 'Sunset view from the Golden Gate Bridge.'),
-(1, 3, 'eiffel_tower_photo.jpg', 1024, 5, 'Eiffel Tower by Night', 'The Eiffel Tower lit up at night.');
+INSERT INTO MediaItems (user_id, place_id, filename, media_type, filesize, rating, title, description) VALUES
+(1, 1, 'central_park_photo.jpg', 'image', 2048, 5, 'Central Park in Spring', 'A beautiful view of Central Park in spring.'),
+(2, 2, 'golden_gate_bridge_photo.jpg', 'image', 3072, 4, 'Golden Gate at Sunset', 'Sunset view from the Golden Gate Bridge.'),
+(1, 3, 'eiffel_tower_photo.jpg', 'image', 1024, 5, 'Eiffel Tower by Night', 'The Eiffel Tower lit up at night.');
 
 -- Insert data into Comments
 INSERT INTO Comments (media_id, user_id, comment_text) VALUES

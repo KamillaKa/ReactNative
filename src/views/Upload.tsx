@@ -2,7 +2,13 @@ import {Controller, useForm} from 'react-hook-form';
 import {Button, Card, Input} from '@rneui/base';
 import * as ImagePicker from 'expo-image-picker';
 import {useEffect, useState} from 'react';
-import {TouchableOpacity, Keyboard, ScrollView, Alert} from 'react-native';
+import {
+  TouchableOpacity,
+  Keyboard,
+  ScrollView,
+  Alert,
+  StyleSheet,
+} from 'react-native';
 import {Video} from 'expo-av';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
@@ -10,6 +16,7 @@ import {
   ParamListBase,
   useNavigation,
 } from '@react-navigation/native';
+import RNPickerSelect from 'react-native-picker-select';
 import {useFile, useMedia} from '../hooks/apiHooks';
 import {useUpdateContext} from '../hooks/UpdateHook';
 
@@ -22,7 +29,12 @@ const Upload = () => {
   const {update, setUpdate} = useUpdateContext();
   const navigation: NavigationProp<ParamListBase> = useNavigation();
 
-  const initValues = {title: '', description: ''};
+  const initValues = {
+    title: '',
+    description: '',
+    rating: '',
+    place_id: '',
+  };
   const {
     control,
     handleSubmit,
@@ -37,7 +49,12 @@ const Upload = () => {
     setImage(null);
   };
 
-  const doUpload = async (inputs: {title: string; description: string}) => {
+  const doUpload = async (inputs: {
+    title: string;
+    description: string;
+    rating: string;
+    place_id: string;
+  }) => {
     if (!image) {
       Alert.alert('No media selected');
       return;
@@ -46,8 +63,14 @@ const Upload = () => {
     try {
       const token = await AsyncStorage.getItem('token');
       if (token) {
+        const newInput = {
+          ...inputs,
+          rating: +inputs.rating,
+          place_id: 1,
+        };
         const fileResponse = await postExpoFile(image.assets![0].uri, token);
-        const mediaResponse = await postMedia(fileResponse, inputs, token);
+        console.log('fileResponse', fileResponse);
+        const mediaResponse = await postMedia(fileResponse, newInput, token);
         setUpdate(!update);
         Alert.alert(mediaResponse.message);
         navigation.navigate('Home');
@@ -72,6 +95,19 @@ const Upload = () => {
     }
   };
 
+  const placeholder = {
+    label: 'Select rating',
+    value: null,
+  };
+
+  const items = [
+    {label: '1', value: 1},
+    {label: '2', value: 2},
+    {label: '3', value: 3},
+    {label: '4', value: 4},
+    {label: '5', value: 5},
+  ];
+
   useEffect(() => {
     const unsubscribe = navigation.addListener('blur', () => {
       resetForm();
@@ -80,11 +116,27 @@ const Upload = () => {
     return unsubscribe;
   }, []);
 
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: 'center',
+      paddingHorizontal: 10,
+    },
+    title: {
+      textAlign: 'center',
+      marginVertical: 8,
+    },
+    fixToText: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+    },
+  });
+
   return (
     <ScrollView>
       <TouchableOpacity
+        style={styles.container}
         onPress={() => Keyboard.dismiss()}
-        style={{flex: 1}}
         activeOpacity={1}
       >
         <Card>
@@ -145,6 +197,20 @@ const Upload = () => {
             )}
             name="description"
           />
+          <Card.Divider />
+          <Controller
+            control={control}
+            render={({field: {onChange, value}}) => (
+              <RNPickerSelect
+                onValueChange={onChange}
+                items={items}
+                placeholder={placeholder}
+                value={value}
+              />
+            )}
+            name="rating"
+          />
+          <Card.Divider />
           <Button title="Choose media" onPress={pickImage} />
           <Card.Divider />
           <Button title="Upload" onPress={handleSubmit(doUpload)} />

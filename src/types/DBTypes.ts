@@ -19,6 +19,8 @@ type MediaItem = {
   user_id: number; // REST API
   // media_id: string; // GraphQL
   // user_id: string; // GraphQL
+  place_id: number;
+  rating: number;
   filename: string;
   thumbnail: string;
   filesize: number;

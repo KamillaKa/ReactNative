@@ -22,9 +22,6 @@ const Profile = () => {
             <Icon name="email" />
             <ListItem.Title>{user.email}</ListItem.Title>
           </ListItem>
-          <ListItem>
-            <ListItem.Title>user id: {user.user_id}</ListItem.Title>
-          </ListItem>
           <Card.Divider />
           <Button onPress={() => navigation.navigate('My Files')}>
             My Files &nbsp;
