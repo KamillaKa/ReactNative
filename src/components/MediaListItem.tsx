@@ -20,7 +20,7 @@ const MediaListItem = ({item, navigation}: Props) => {
           navigation.navigate('Single Media', item);
         }}
         style={{aspectRatio: 1, height: 300}}
-        source={{uri: 'http:' + item.thumbnail}}
+        source={{uri: item.thumbnail}}
       />
       <Card.Divider />
       <ListItem.Swipeable

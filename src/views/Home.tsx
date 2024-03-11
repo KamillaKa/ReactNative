@@ -5,6 +5,7 @@ import MediaListItem from '../components/MediaListItem';
 
 const Home = ({navigation}: {navigation: NavigationProp<ParamListBase>}) => {
   const {mediaArray} = useMedia();
+  console.log(mediaArray);
 
   return (
     <>
