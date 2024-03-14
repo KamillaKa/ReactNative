@@ -2,6 +2,7 @@ import {Controller, useForm} from 'react-hook-form';
 import {Button, Card, Input} from '@rneui/base';
 import {useUserContext} from '../hooks/ContextHooks';
 import {Credentials} from '../types/LocalTypes';
+import {GlobalStyles, Colors} from '../styles/styles';
 
 const LoginForm = () => {
   const {handleLogin} = useUserContext();
@@ -19,16 +20,16 @@ const LoginForm = () => {
   };
 
   return (
-    <Card>
+    <Card containerStyle={GlobalStyles.LogRegCard}>
       <Controller
         control={control}
         rules={{
           required: {
             value: true,
-            message: 'Käyttäjänimi vaaditaan vitun pelle',
+            message: 'Username is required',
           },
         }}
-        render={({field: {onChange, onBlur, value}}) => (
+        render={({field: {onChange, onBlur, value}, fieldState: {error}}) => (
           <Input
             placeholder="Username"
             onBlur={onBlur}
@@ -36,6 +37,10 @@ const LoginForm = () => {
             value={value}
             autoCapitalize="none"
             errorMessage={errors.username?.message}
+            placeholderTextColor={Colors.placeholder}
+            containerStyle={{paddingHorizontal: 0, width: '100%'}}
+            inputContainerStyle={GlobalStyles.input}
+            errorStyle={GlobalStyles.errorText} // Custom style for error messages
           />
         )}
         name="username"
@@ -45,7 +50,7 @@ const LoginForm = () => {
         control={control}
         rules={{
           maxLength: 100,
-          required: {value: true, message: 'is required'},
+          required: {value: true, message: 'Password is required'},
         }}
         render={({field: {onChange, onBlur, value}}) => (
           <Input
@@ -55,11 +60,20 @@ const LoginForm = () => {
             onChangeText={onChange}
             value={value}
             errorMessage={errors.password?.message}
+            placeholderTextColor={Colors.placeholder}
+            containerStyle={{paddingHorizontal: 0, width: '100%'}}
+            inputContainerStyle={GlobalStyles.input}
+            errorStyle={GlobalStyles.errorText}
           />
         )}
         name="password"
       />
-      <Button title="Login" onPress={handleSubmit(doLogin)} />
+      <Button
+        title="Login"
+        onPress={handleSubmit(doLogin)}
+        buttonStyle={[GlobalStyles.button, {width: '100%', marginTop: 10}]}
+        titleStyle={{fontWeight: 'bold'}}
+      />
     </Card>
   );
 };

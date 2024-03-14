@@ -18,6 +18,9 @@ const TabNavigator = () => {
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({
+        tabBarActiveTintColor: '#3897f0',
+        tabBarInactiveTintColor: 'gray',
+        tabBarStyle: {paddingBottom: 5, height: 60},
         tabBarIcon: ({color, size}) => {
           let iconName;
           if (route.name === 'Home') {

@@ -10,6 +10,7 @@ import {
 import {MediaItemWithOwner} from '../types/DBTypes';
 import Comments from '../components/Comments';
 import Likes from '../components/Likes';
+import {GlobalStyles} from '../styles/styles';
 
 const Single = ({route}: any) => {
   const item: MediaItemWithOwner = route.params;
@@ -21,12 +22,12 @@ const Single = ({route}: any) => {
     >
       <ScrollView>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <Card>
+          <Card containerStyle={GlobalStyles.card}>
             <Card.Title>{item.title}</Card.Title>
             <Likes item={item} />
             {fileType === 'image' ? (
               <Card.Image
-                style={{height: 350, aspectRatio: 1}}
+                style={{height: 350, aspectRatio: 1, borderRadius: 10}}
                 resizeMode="contain"
                 source={{uri: 'http:' + item.filename}}
               />

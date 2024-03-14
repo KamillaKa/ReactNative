@@ -12,6 +12,7 @@ import {
 import {useMedia} from '../hooks/apiHooks';
 import {useUpdateContext} from '../hooks/UpdateHook';
 import {MediaItem, MediaItemWithOwner} from '../types/DBTypes';
+import {GlobalStyles} from '../styles/styles';
 
 const Modify = ({route}: any) => {
   const item: MediaItemWithOwner = route.params;
@@ -66,7 +67,7 @@ const Modify = ({route}: any) => {
         style={{flex: 1}}
         activeOpacity={1}
       >
-        <Card>
+        <Card containerStyle={GlobalStyles.card}>
           {item && item.media_type.includes('video') ? (
             <Video
               source={{uri: 'http:' + item.filename}}
@@ -75,7 +76,7 @@ const Modify = ({route}: any) => {
             />
           ) : (
             <Card.Image
-              style={{aspectRatio: 1, height: 300}}
+              style={{aspectRatio: 1, height: 300, borderRadius: 10}}
               source={{
                 uri: 'http:' + item.filename,
               }}
@@ -97,6 +98,8 @@ const Modify = ({route}: any) => {
                 onChangeText={onChange}
                 value={value}
                 errorMessage={errors.title?.message}
+                inputContainerStyle={GlobalStyles.input}
+                placeholderTextColor="#666"
               />
             )}
             name="title"
@@ -116,14 +119,23 @@ const Modify = ({route}: any) => {
                 errorMessage={errors.description?.message}
                 multiline={true}
                 numberOfLines={5}
-                style={{height: 120, textAlignVertical: 'top'}}
+                inputContainerStyle={GlobalStyles.input}
+                placeholderTextColor="#666"
               />
             )}
             name="description"
           />
-          <Button title="Modify" onPress={handleSubmit(doModify)} />
+          <Button
+            title="Modify"
+            onPress={handleSubmit(doModify)}
+            buttonStyle={GlobalStyles.button}
+          />
           <Card.Divider />
-          <Button title="Reset" onPress={resetForm} />
+          <Button
+            title="Reset"
+            onPress={resetForm}
+            buttonStyle={GlobalStyles.button}
+          />
         </Card>
       </TouchableOpacity>
     </ScrollView>

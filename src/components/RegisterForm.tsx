@@ -2,6 +2,7 @@ import {Controller, useForm} from 'react-hook-form';
 import {Button, Card, Input} from '@rneui/base';
 import {Alert} from 'react-native';
 import {useUser} from '../hooks/apiHooks';
+import {GlobalStyles} from '../styles/styles';
 
 const RegisterForm = ({handleToggle}: {handleToggle: () => void}) => {
   const {postUser, getUsernameAvailable, getEmailAvailable} = useUser();
@@ -38,13 +39,13 @@ const RegisterForm = ({handleToggle}: {handleToggle: () => void}) => {
   };
 
   return (
-    <Card>
+    <Card containerStyle={GlobalStyles.LogRegCard}>
       <Controller
         control={control}
         rules={{
           required: {
             value: true,
-            message: 'Käyttäjänimi vaaditaan vitun pelle',
+            message: 'Username is required',
           },
           validate: async (value) => {
             try {
@@ -64,6 +65,9 @@ const RegisterForm = ({handleToggle}: {handleToggle: () => void}) => {
             value={value}
             autoCapitalize="none"
             errorMessage={errors.username?.message}
+            containerStyle={{paddingHorizontal: 0, width: '100%'}}
+            inputContainerStyle={GlobalStyles.input}
+            placeholderTextColor="#666"
           />
         )}
         name="username"
@@ -79,7 +83,7 @@ const RegisterForm = ({handleToggle}: {handleToggle: () => void}) => {
           //   message:
           //     'Password must contain at least 5 characters, 1 special character (@, $, !, %, *, #, ?, &), and 1 number',
           // },
-          required: {value: true, message: 'is required'},
+          required: {value: true, message: 'Password is required'},
         }}
         render={({field: {onChange, onBlur, value}}) => (
           <Input
@@ -89,6 +93,9 @@ const RegisterForm = ({handleToggle}: {handleToggle: () => void}) => {
             onChangeText={onChange}
             value={value}
             errorMessage={errors.password?.message}
+            containerStyle={{paddingHorizontal: 0, width: '100%'}}
+            inputContainerStyle={GlobalStyles.input}
+            placeholderTextColor="#666"
           />
         )}
         name="password"
@@ -97,7 +104,7 @@ const RegisterForm = ({handleToggle}: {handleToggle: () => void}) => {
       <Controller
         control={control}
         rules={{
-          required: {value: true, message: 'is required'},
+          required: {value: true, message: 'Password is required'},
           validate: (value) =>
             value === getValues().password ? true : 'Passwords do not match',
         }}
@@ -109,6 +116,9 @@ const RegisterForm = ({handleToggle}: {handleToggle: () => void}) => {
             onChangeText={onChange}
             value={value}
             errorMessage={errors.confirmPassword?.message}
+            containerStyle={{paddingHorizontal: 0, width: '100%'}}
+            inputContainerStyle={GlobalStyles.input}
+            placeholderTextColor="#666"
           />
         )}
         name="confirmPassword"
@@ -118,7 +128,7 @@ const RegisterForm = ({handleToggle}: {handleToggle: () => void}) => {
         control={control}
         rules={{
           maxLength: 100,
-          required: {value: true, message: 'is required'},
+          required: {value: true, message: 'Email is required'},
           pattern: {
             value: /^\S+@\S+\.\S+$/,
             message: 'Invalid email address',
@@ -140,11 +150,18 @@ const RegisterForm = ({handleToggle}: {handleToggle: () => void}) => {
             value={value}
             errorMessage={errors.email?.message}
             autoCapitalize="none"
+            containerStyle={{paddingHorizontal: 0, width: '100%'}}
+            inputContainerStyle={GlobalStyles.input}
+            placeholderTextColor="#666"
           />
         )}
         name="email"
       />
-      <Button title="Register" onPress={handleSubmit(doRegister)} />
+      <Button
+        title="Register"
+        onPress={handleSubmit(doRegister)}
+        buttonStyle={GlobalStyles.button}
+      />
     </Card>
   );
 };

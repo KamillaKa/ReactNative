@@ -19,6 +19,7 @@ import {
 import RNPickerSelect from 'react-native-picker-select';
 import {useFile, useMedia} from '../hooks/apiHooks';
 import {useUpdateContext} from '../hooks/UpdateHook';
+import {GlobalStyles} from '../styles/styles';
 
 const Upload = () => {
   const [image, setImage] = useState<ImagePicker.ImagePickerResult | null>(
@@ -116,30 +117,14 @@ const Upload = () => {
     return unsubscribe;
   }, []);
 
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      paddingHorizontal: 10,
-    },
-    title: {
-      textAlign: 'center',
-      marginVertical: 8,
-    },
-    fixToText: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-    },
-  });
-
   return (
     <ScrollView>
       <TouchableOpacity
-        style={styles.container}
+        style={GlobalStyles.container}
         onPress={() => Keyboard.dismiss()}
         activeOpacity={1}
       >
-        <Card>
+        <Card containerStyle={GlobalStyles.card}>
           {image && image.assets![0].mimeType?.includes('video') ? (
             <Video
               source={{uri: image.assets![0].uri}}
@@ -149,7 +134,7 @@ const Upload = () => {
           ) : (
             <Card.Image
               onPress={pickImage}
-              style={{aspectRatio: 1, height: 300}}
+              style={{aspectRatio: 1, height: 300, borderRadius: 10}}
               source={{
                 uri: image
                   ? image.assets![0].uri
@@ -168,6 +153,8 @@ const Upload = () => {
             }}
             render={({field: {onChange, onBlur, value}}) => (
               <Input
+                inputContainerStyle={GlobalStyles.input}
+                placeholderTextColor="#666"
                 placeholder="Title"
                 onBlur={onBlur}
                 onChangeText={onChange}
@@ -192,7 +179,6 @@ const Upload = () => {
                 errorMessage={errors.description?.message}
                 multiline={true}
                 numberOfLines={5}
-                style={{height: 120, textAlignVertical: 'top'}}
               />
             )}
             name="description"
@@ -211,11 +197,23 @@ const Upload = () => {
             name="rating"
           />
           <Card.Divider />
-          <Button title="Choose media" onPress={pickImage} />
+          <Button
+            title="Choose media"
+            onPress={pickImage}
+            buttonStyle={GlobalStyles.button}
+          />
           <Card.Divider />
-          <Button title="Upload" onPress={handleSubmit(doUpload)} />
+          <Button
+            title="Upload"
+            onPress={handleSubmit(doUpload)}
+            buttonStyle={GlobalStyles.button}
+          />
           <Card.Divider />
-          <Button title="Reset" onPress={resetForm} />
+          <Button
+            title="Reset"
+            onPress={resetForm}
+            buttonStyle={GlobalStyles.button}
+          />
         </Card>
       </TouchableOpacity>
     </ScrollView>
