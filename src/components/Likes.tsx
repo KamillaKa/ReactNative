@@ -102,7 +102,7 @@ const Likes = ({item}: {item: MediaItemWithOwner}) => {
         right: 10,
         zIndex: 1,
       }}
-      buttonStyle={GlobalStyles.button}
+      buttonStyle={GlobalStyles.smallButton}
     >
       <Icon
         type="material-community"
@@ -113,7 +113,7 @@ const Likes = ({item}: {item: MediaItemWithOwner}) => {
       <Badge
         status="error"
         value={likeState.count}
-        containerStyle={{position: 'absolute', top: -4, right: -4}}
+        containerStyle={{position: 'absolute', top: -2, right: 0}}
         textStyle={{color: 'white'}}
       />
     </Button>

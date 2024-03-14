@@ -1,6 +1,6 @@
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
 import {Card, Icon, ListItem, Button, Avatar, Text} from '@rneui/base';
-import {ViewStyle} from 'react-native';
+import {ViewStyle, View} from 'react-native';
 import {MediaItemWithOwner} from '../types/DBTypes';
 import {useUserContext} from '../hooks/ContextHooks';
 import {GlobalStyles} from '../styles/styles';
@@ -12,12 +12,36 @@ type Props = {
   containerStyle?: ViewStyle;
 };
 
-const MediaListItem = ({item, navigation, containerStyle}: Props) => {
+const renderStars = (rating: number) => {
+  const stars = [];
+  for (let i = 0; i < rating; i++) {
+    stars.push(
+      <Icon key={i} name="star" type="ionicon" color="#FFD700" size={20} />,
+    );
+  }
+  return stars;
+};
+
+const MediaListItem = ({item, navigation}: Props) => {
   // tai propsin sijasta hookilla const navigation = useNavigation();
   const {user} = useUserContext();
 
   return (
     <Card containerStyle={GlobalStyles.card}>
+      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <Avatar
+          size={50}
+          icon={{
+            name: item.media_type.includes('image') ? 'image' : 'film',
+            type: 'ionicon',
+            color: '#333',
+          }}
+        />
+        <Text style={[GlobalStyles.title, {paddingRight: 10}]}>
+          {item.username}
+        </Text>
+        {renderStars(item.rating)}
+      </View>
       <Card.Image
         onPress={() => {
           navigation.navigate('Single Media', item);
@@ -35,7 +59,7 @@ const MediaListItem = ({item, navigation, containerStyle}: Props) => {
             {user && user.user_id === item.user_id ? (
               <>
                 <Button
-                  buttonStyle={GlobalStyles.button}
+                  buttonStyle={GlobalStyles.smallButton}
                   onPress={() => {
                     navigation.navigate('Modify', item);
                   }}
@@ -43,7 +67,7 @@ const MediaListItem = ({item, navigation, containerStyle}: Props) => {
                   <Icon type="ionicon" name="create" color="white" />
                 </Button>
                 <Button
-                  buttonStyle={GlobalStyles.button}
+                  buttonStyle={GlobalStyles.smallButton}
                   color="error"
                   onPress={() => {
                     console.log('delete');
@@ -55,7 +79,7 @@ const MediaListItem = ({item, navigation, containerStyle}: Props) => {
               </>
             ) : (
               <ListItem.Content>
-                <ListItem.Title>Kukkuu</ListItem.Title>
+                <ListItem.Title>Nothing to see here O.O</ListItem.Title>
               </ListItem.Content>
             )}
           </ListItem>
@@ -67,19 +91,12 @@ const MediaListItem = ({item, navigation, containerStyle}: Props) => {
             style={{transform: 'rotate(180deg)'}}
           />
         )}
-        <Avatar
-          size={50}
-          icon={{
-            name: item.media_type.includes('image') ? 'image' : 'film',
-            type: 'ionicon',
-            color: '#333',
-          }}
-        />
+
         <ListItem.Content>
           <Text h4>{item.title}</Text>
           <Text>
-            By: {item.username}, at:{' '}
             {new Date(item.created_at).toLocaleString('fi-FI')}
+            {'\n'}
           </Text>
         </ListItem.Content>
 

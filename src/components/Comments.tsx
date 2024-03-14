@@ -3,6 +3,7 @@ import {useForm, Controller} from 'react-hook-form';
 import {Input, Card, Button, ListItem} from '@rneui/base';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
+import {View} from 'react-native';
 import {useUserContext} from '../hooks/ContextHooks';
 import {Comment, MediaItemWithOwner} from '../types/DBTypes';
 import {useComment} from '../hooks/apiHooks';
@@ -68,25 +69,35 @@ const Comments = ({item}: {item: MediaItemWithOwner}) => {
     <>
       {comments.length > 0 && (
         <Card containerStyle={GlobalStyles.card}>
-          <Card.Title style={{fontSize: 16, color: Colors.text}}>
-            Comments
-          </Card.Title>
+          <Card.Title style={GlobalStyles.title}>Comments</Card.Title>
           {comments.map((comment, index) => (
             <ListItem
               key={comment.comment_id || index}
               bottomDivider
-              containerStyle={{paddingVertical: 5}}
+              containerStyle={GlobalStyles.listItem}
             >
               <ListItem.Content>
-                <ListItem.Subtitle>
-                  {new Date(comment.created_at!).toLocaleDateString('fi-FI')}{' '}
-                </ListItem.Subtitle>
-                <ListItem.Title style={{fontWeight: 'bold'}}>
-                  {comment.username}
-                </ListItem.Title>
-                <ListItem.Title>{comment.comment_text}</ListItem.Title>
-                <ListItem.Title style={{fontSize: 12, color: '#8e8e8e'}}>
-                  {new Date(comment.created_at).toLocaleDateString('fi-FI')}
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    marginVertical: 5,
+                  }}
+                >
+                  <ListItem.Title
+                    style={[
+                      GlobalStyles.title,
+                      {marginVertical: 0, paddingEnd: 5, fontSize: 16},
+                    ]}
+                  >
+                    {comment.username}
+                  </ListItem.Title>
+                  <ListItem.Subtitle>
+                    {new Date(comment.created_at!).toLocaleDateString('fi-FI')}{' '}
+                  </ListItem.Subtitle>
+                </View>
+                <ListItem.Title style={GlobalStyles.text}>
+                  {comment.comment_text}
                 </ListItem.Title>
               </ListItem.Content>
             </ListItem>
@@ -94,17 +105,8 @@ const Comments = ({item}: {item: MediaItemWithOwner}) => {
         </Card>
       )}
       {user && (
-        <Card containerStyle={[GlobalStyles.card, {marginTop: 10}]}>
-          <Card.Title
-            style={{
-              marginHorizontal: 10,
-              marginBottom: 5,
-              fontSize: 16,
-              color: Colors.text,
-            }}
-          >
-            Post Comment
-          </Card.Title>
+        <Card containerStyle={GlobalStyles.card}>
+          <Card.Title style={GlobalStyles.title}>Post Comment</Card.Title>
           <Controller
             control={control}
             rules={{

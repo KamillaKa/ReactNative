@@ -153,7 +153,6 @@ const Upload = () => {
             }}
             render={({field: {onChange, onBlur, value}}) => (
               <Input
-                inputContainerStyle={GlobalStyles.input}
                 placeholderTextColor="#666"
                 placeholder="Title"
                 onBlur={onBlur}

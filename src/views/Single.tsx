@@ -39,9 +39,25 @@ const Single = ({route}: any) => {
                 resizeMode={ResizeMode.CONTAIN}
               />
             )}
-            <Card.FeaturedSubtitle style={{color: 'black'}}>
-              {item.description}
+            <Card.FeaturedSubtitle
+              style={[
+                GlobalStyles.text,
+                {paddingHorizontal: 15, fontSize: 16, fontWeight: 'bold'},
+              ]}
+            >
+              {'\n'}
+              Description:
+              {'\n'}
+              <Text style={{fontWeight: 'normal', fontSize: 15}}>
+                {'\n'}
+                {item.description}
+                {'\n'}
+              </Text>
             </Card.FeaturedSubtitle>
+            <ListItem>
+              <Icon name="star" color="#FFF200" />
+              <Text>{item.rating}</Text>
+            </ListItem>
             <ListItem>
               <Icon name="today" />
               <Text>{new Date(item.created_at).toLocaleString('fi-FI')}</Text>
