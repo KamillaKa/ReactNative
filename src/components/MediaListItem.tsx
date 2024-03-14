@@ -15,6 +15,7 @@ type Props = {
 const MediaListItem = ({item, navigation, containerStyle}: Props) => {
   // tai propsin sijasta hookilla const navigation = useNavigation();
   const {user} = useUserContext();
+
   return (
     <Card containerStyle={GlobalStyles.card}>
       <Card.Image
