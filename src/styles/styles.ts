@@ -1,14 +1,18 @@
 // styles/GlobalStyles.js
+import {color} from '@rneui/base';
 import {StyleSheet} from 'react-native';
 
 export const Colors = {
-  // #563d2d
+  primary: '#795c34',
+  white: '#fff',
+  lightBrown: '#ebe0d6',
+  darkBrown: '#53341D',
 };
 
 export const GlobalStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: Colors.white,
     borderWidth: 0,
   },
   LogRegCard: {
@@ -32,7 +36,7 @@ export const GlobalStyles = StyleSheet.create({
     alignItems: 'center',
   },
   button: {
-    backgroundColor: '#3897f0',
+    backgroundColor: Colors.primary,
     borderRadius: 5,
     paddingVertical: 10,
     paddingHorizontal: 15,
@@ -54,17 +58,18 @@ export const GlobalStyles = StyleSheet.create({
     fontWeight: 'bold',
   },
   input: {
-    borderColor: '#dbdbdb',
-    borderWidth: 1,
+    borderWidth: 0,
+    shadowColor: 'transparent',
+    borderColor: 'transparent',
     borderRadius: 5,
     paddingVertical: 8,
     paddingHorizontal: 10,
-    backgroundColor: '#fafafa',
+    backgroundColor: Colors.lightBrown,
     marginBottom: 2,
   },
   text: {
     fontSize: 16,
-    color: '#262626',
+    color: Colors.primary,
     marginBottom: 5,
   },
   badge: {
@@ -95,12 +100,12 @@ export const GlobalStyles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#262626',
+    color: Colors.primary,
     marginVertical: 5,
   },
   dateText: {
     fontSize: 12,
-    color: '#8e8e8e',
+    color: Colors.primary,
     marginTop: 5,
   },
 });

@@ -7,7 +7,7 @@ import {
   Keyboard,
   ScrollView,
   Alert,
-  StyleSheet,
+  Text,
 } from 'react-native';
 import {Video} from 'expo-av';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -143,6 +143,7 @@ const Upload = () => {
             />
           )}
           <Card.Divider />
+          <Text style={[GlobalStyles.text]}>Title</Text>
           <Controller
             control={control}
             rules={{
@@ -153,7 +154,6 @@ const Upload = () => {
             }}
             render={({field: {onChange, onBlur, value}}) => (
               <Input
-                placeholderTextColor="#666"
                 placeholder="Title"
                 onBlur={onBlur}
                 onChangeText={onChange}
@@ -164,6 +164,7 @@ const Upload = () => {
             name="title"
           />
 
+          <Text style={[GlobalStyles.text]}>Description</Text>
           <Controller
             control={control}
             rules={{
@@ -177,12 +178,13 @@ const Upload = () => {
                 value={value}
                 errorMessage={errors.description?.message}
                 multiline={true}
-                numberOfLines={5}
+                numberOfLines={3}
               />
             )}
             name="description"
           />
           <Card.Divider />
+          <Text style={GlobalStyles.text}>Rating</Text>
           <Controller
             control={control}
             render={({field: {onChange, value}}) => (
@@ -211,7 +213,7 @@ const Upload = () => {
           <Button
             title="Reset"
             onPress={resetForm}
-            buttonStyle={GlobalStyles.button}
+            buttonStyle={[GlobalStyles.button, {backgroundColor: 'red'}]}
           />
         </Card>
       </TouchableOpacity>

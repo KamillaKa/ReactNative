@@ -85,6 +85,7 @@ const Likes = ({item}: {item: MediaItemWithOwner}) => {
         await postLike(item.media_id, token);
       }
       getLikes(); // Refresh likes state
+      getLikeCount();
     } catch (error) {
       console.error('Like action error:', error);
     }
@@ -96,17 +97,17 @@ const Likes = ({item}: {item: MediaItemWithOwner}) => {
     <Button
       onPress={handleLike}
       type="clear"
-      containerStyle={{
-        position: 'absolute',
-        top: 10,
-        right: 10,
-        zIndex: 1,
-      }}
       buttonStyle={GlobalStyles.smallButton}
+      containerStyle={{
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        height: 50,
+      }}
     >
       <Icon
         type="material-community"
-        color={likeState.userLike ? Colors.primary : Colors.iconInactive}
+        color={likeState.userLike ? Colors.primary : Colors.primary}
         name={likeState.userLike ? 'heart' : 'heart-outline'}
         size={30}
       />

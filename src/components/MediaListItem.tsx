@@ -3,7 +3,7 @@ import {Card, Icon, ListItem, Button, Avatar, Text} from '@rneui/base';
 import {ViewStyle, View} from 'react-native';
 import {MediaItemWithOwner} from '../types/DBTypes';
 import {useUserContext} from '../hooks/ContextHooks';
-import {GlobalStyles} from '../styles/styles';
+import {GlobalStyles, Colors} from '../styles/styles';
 import Likes from './Likes';
 
 type Props = {
@@ -87,13 +87,15 @@ const MediaListItem = ({item, navigation}: Props) => {
       >
         {user && user.user_id === item.user_id && (
           <ListItem.Chevron
-            color="black"
+            color={Colors.darkBrown}
             style={{transform: 'rotate(180deg)'}}
           />
         )}
 
         <ListItem.Content>
-          <Text h4>{item.title}</Text>
+          <Text style={[GlobalStyles.title, {color: Colors.darkBrown}]}>
+            {item.title}
+          </Text>
           <Text>
             {new Date(item.created_at).toLocaleString('fi-FI')}
             {'\n'}
