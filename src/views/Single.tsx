@@ -9,12 +9,11 @@ import {
 } from 'react-native';
 import {MediaItemWithOwner} from '../types/DBTypes';
 import Comments from '../components/Comments';
-import Likes from '../components/Likes';
 import {GlobalStyles, Colors} from '../styles/styles';
 
 const Single = ({route}: any) => {
   const item: MediaItemWithOwner = route.params;
-  const [fileType, fileFormat] = item.media_type.split('&#x2F;');
+  const [fileType, fileFormat] = item.media_type.split('/');
 
   return (
     <KeyboardAvoidingView
@@ -26,18 +25,21 @@ const Single = ({route}: any) => {
             <Card.Title style={GlobalStyles.title}>{item.title}</Card.Title>
             {fileType === 'image' ? (
               <Card.Image
-                style={{height: 350, aspectRatio: 1, borderRadius: 10}}
+                style={GlobalStyles.image}
                 resizeMode="contain"
-                source={{uri: 'http:' + item.filename}}
+                source={{uri: item.filename}}
               />
             ) : (
               <Video
                 style={{height: 350}}
-                source={{uri: 'http:' + item.filename}}
+                source={{uri: item.filename}}
                 useNativeControls
                 resizeMode={ResizeMode.CONTAIN}
               />
             )}
+            <Text style={[GlobalStyles.text, {marginLeft: 10}]}>
+              {item.place_name}
+            </Text>
             <Card.FeaturedSubtitle
               style={[
                 GlobalStyles.text,
@@ -62,11 +64,11 @@ const Single = ({route}: any) => {
               <Text>{new Date(item.created_at).toLocaleString('fi-FI')}</Text>
             </ListItem>
             <ListItem>
-              <Icon name="person" color={Colors.darkBrown}/>
+              <Icon name="person" color={Colors.darkBrown} />
               <Text>{item.username}</Text>
             </ListItem>
             <ListItem>
-              <Icon name="image" color={Colors.darkBrown}/>
+              <Icon name="image" color={Colors.darkBrown} />
               <Text>
                 {fileType} / {fileFormat}, {Math.round(item.filesize / 1024)} kB
               </Text>

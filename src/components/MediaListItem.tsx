@@ -93,6 +93,7 @@ const MediaListItem = ({item, navigation}: Props) => {
         )}
 
         <ListItem.Content>
+          <Text>{item.place_id}</Text>
           <Text style={[GlobalStyles.title, {color: Colors.darkBrown}]}>
             {item.title}
           </Text>

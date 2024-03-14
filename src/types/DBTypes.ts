@@ -64,7 +64,7 @@ type Rating = {
 type Place = {
   place_id: number;
   place_name: string;
-}
+};
 
 type Tag = {
   tag_id: number; // REST API
@@ -111,7 +111,10 @@ type UserWithNoPassword = Omit<UserWithLevel, 'password'>;
 type TokenContent = Pick<User, 'user_id'> & Pick<UserLevel, 'level_name'>;
 
 // for REST API
-type MediaItemWithOwner = MediaItem & Pick<User, 'username'>;
+type MediaItemWithOwner = MediaItem &
+  Pick<User, 'username'> & {
+    place_name?: string;
+  };
 
 // FOR GRAPHQL
 // type MediaItemWithOwner = MediaItem & {
