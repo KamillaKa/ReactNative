@@ -7,7 +7,7 @@ import {
   Keyboard,
   ScrollView,
   Alert,
-  StyleSheet,
+  Text,
 } from 'react-native';
 import {Video} from 'expo-av';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -17,7 +17,7 @@ import {
   useNavigation,
 } from '@react-navigation/native';
 import RNPickerSelect from 'react-native-picker-select';
-import {useFile, useMedia} from '../hooks/apiHooks';
+import {useFile, useMedia, usePlaces} from '../hooks/apiHooks';
 import {useUpdateContext} from '../hooks/UpdateHook';
 
 const Upload = () => {
@@ -116,21 +116,9 @@ const Upload = () => {
     return unsubscribe;
   }, []);
 
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      paddingHorizontal: 10,
-    },
-    title: {
-      textAlign: 'center',
-      marginVertical: 8,
-    },
-    fixToText: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-    },
-  });
+  const places = usePlaces();
+
+  const [selectedTags, setSelectedTags] = useState([]);
 
   return (
     <ScrollView>
@@ -149,7 +137,7 @@ const Upload = () => {
           ) : (
             <Card.Image
               onPress={pickImage}
-              style={{aspectRatio: 1, height: 300}}
+              style={GlobalStyles.image}
               source={{
                 uri: image
                   ? image.assets![0].uri
@@ -157,13 +145,35 @@ const Upload = () => {
               }}
             />
           )}
+          <Text style={[GlobalStyles.text]}>Place</Text>
+          <Controller
+            control={control}
+            rules={{
+              required: {
+                value: true,
+                message: 'Place is required',
+              },
+            }}
+            render={({field: {onChange, value}}) => (
+              <RNPickerSelect
+                onValueChange={onChange}
+                items={places.map((place) => ({
+                  label: place.place_name,
+                  value: place.place_id,
+                }))}
+                placeholder={{label: 'Select a place', value: null}}
+                value={value}
+              />
+            )}
+            name="place_id"
+          />
           <Card.Divider />
           <Controller
             control={control}
             rules={{
               required: {
                 value: true,
-                message: 'Title tarttis laittaa',
+                message: 'Title is required',
               },
             }}
             render={({field: {onChange, onBlur, value}}) => (

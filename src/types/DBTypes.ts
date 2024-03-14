@@ -61,6 +61,11 @@ type Rating = {
   created_at: Date;
 };
 
+type Place = {
+  place_id: number;
+  place_name: string;
+}
+
 type Tag = {
   tag_id: number; // REST API
   // tag_id: string; // GraphQL
@@ -132,6 +137,7 @@ export type {
   Comment,
   Like,
   Rating,
+  Place,
   Tag,
   MediaItemTag,
   TagResult,

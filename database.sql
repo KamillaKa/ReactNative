@@ -83,7 +83,29 @@ INSERT INTO Users (username, password, email, user_level_id) VALUES
 ('adminUser', 'adminPassword', 'admin@example.com', 1);
 
 -- Insert data into Places
-INSERT INTO Places (place_name) VALUES ('Central Park'), ('Golden Gate Bridge'), ('Eiffel Tower');
+INSERT INTO Places (place_name) VALUES
+('Iivisniemenpellon koirapuisto'),
+('Jupperinmetsän koira-aitaus'),
+('Järvenperän koirapuisto'),
+('Kilon koirapuisto'),
+('Kirkkojärvenrannan koirapuisto'),
+('Kurkijoenpuiston koirapuisto'),
+('Lasipuiston koirapuisto'),
+('Lintukorven koira-aitaus'),
+('Lukupuron koirapuisto'),
+('Nöykkiönpuiston koirapuisto'),
+('Olarin koirapuisto'),
+('Palokaivon koirapuisto'),
+('Pisan koirapuisto'),
+('Rantametsän koirapuisto'),
+('Ruukinmäen koirapuisto'),
+('Saarnilaakson koirapuisto'),
+('Soukan koirapuisto'),
+('Suurpelto, Vävarsinhaka'),
+('Turvesuon koirapuisto'),
+('Tuuliniityn koirapuisto'),
+('Vermonpuiston koirapuisto'),
+('Viherkallionpuiston koirapuisto');
 
 -- Insert data into MediaItems
 INSERT INTO MediaItems (user_id, place_id, filename, media_type, filesize, rating, title, description) VALUES
@@ -105,12 +127,21 @@ INSERT INTO Likes (media_id, user_id) VALUES
 (3, 2);
 
 -- Insert data into Tags
-INSERT INTO Tags (tag_name) VALUES ('Nature'), ('Architecture'), ('Night'), ('Sunset');
+INSERT INTO Tags (tag_name) VALUES
+('Small size'), ('Medium size'), ('Large size'),
+('Deserted'), ('Sparse'), ('Crowded'),
+('Large dogs'), ('Small dogs'), ('Medium dogs'), ('Puppies'), ('All dogs'),
+('Safe'), ('Fully fenced'), ('Ditches'),
+('Clean'), ('Messy'),
+('Water point'), ('Park provides waste bags'), ('WC'), ('Shelter'), ('Seats');
 
 -- Insert data into MediaItemTags
 INSERT INTO MediaItemTags (media_id, tag_id) VALUES
-(1, 1),
-(2, 2),
-(2, 4),
-(3, 2),
-(3, 3);
+(1, 7),
+(1, 6),
+(1, 18),
+(1, 13),
+(2, 9),
+(2, 7),
+(3, 12),
+(3, 15);

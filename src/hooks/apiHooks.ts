@@ -6,6 +6,8 @@ import {
   MediaItem,
   MediaItemWithOwner,
   User,
+  Place,
+  Tag,
 } from '../types/DBTypes';
 import {fetchData} from '../lib/functions';
 import {Credentials} from '../types/LocalTypes';
@@ -317,4 +319,55 @@ const useComment = () => {
   return {postComment, getCommentsByMediaId};
 };
 
-export {useMedia, useUser, useAuthentication, useFile, useLike, useComment};
+const usePlaces = () => {
+  const [places, setPlaces] = useState<Place[]>([]);
+
+  const getPlaces = async () => {
+    try {
+      // Update the endpoint to match your environment
+      const placesData: Place[] = await fetchData(
+        process.env.EXPO_PUBLIC_MEDIA_API + '/places',
+      );
+      setPlaces(placesData);
+    } catch (error) {
+      console.error('Error fetching places:', error);
+    }
+  };
+
+  useEffect(() => {
+    getPlaces();
+  }, []); // Dependency array is empty, so this effect runs only once on component mount
+
+  return places;
+};
+
+const useTags = () => {
+  const [tags, setTags] = useState<Tag[]>([]); // Use the Tag interface
+
+  const getTags = async () => {
+    try {
+      // Use type assertion here
+      const fetchedTags = (await fetchData('yourBackendURL/tags')) as Tag[];
+      setTags(fetchedTags);
+    } catch (error) {
+      console.error('Failed to fetch tags:', error);
+    }
+  };
+
+  useEffect(() => {
+    getTags();
+  }, []);
+
+  return tags;
+};
+
+export {
+  useMedia,
+  useUser,
+  useAuthentication,
+  useFile,
+  useLike,
+  useComment,
+  usePlaces,
+  useTags,
+};
