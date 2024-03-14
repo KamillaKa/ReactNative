@@ -1,7 +1,9 @@
+import React, {useEffect, useState} from 'react';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
 import {Card, Icon, ListItem, Button, Avatar, Text} from '@rneui/base';
 import {ViewStyle, View} from 'react-native';
 import {MediaItemWithOwner} from '../types/DBTypes';
+import {usePlaces} from '../hooks/apiHooks';
 import {useUserContext} from '../hooks/ContextHooks';
 import {GlobalStyles, Colors} from '../styles/styles';
 import Likes from './Likes';
@@ -25,6 +27,16 @@ const renderStars = (rating: number) => {
 const MediaListItem = ({item, navigation}: Props) => {
   // tai propsin sijasta hookilla const navigation = useNavigation();
   const {user} = useUserContext();
+  const places = usePlaces(); // Use the hook to fetch places
+  const [placeName, setPlaceName] = useState('');
+
+  useEffect(() => {
+    // Find the place_name using place_id from the item
+    const place = places.find((p) => p.place_id === item.place_id);
+    if (place) {
+      setPlaceName(place.place_name);
+    }
+  }, [places, item.place_id]);
 
   return (
     <Card containerStyle={GlobalStyles.card}>
@@ -93,8 +105,8 @@ const MediaListItem = ({item, navigation}: Props) => {
         )}
 
         <ListItem.Content>
-          <Text>{item.place_id}</Text>
-          <Text style={[GlobalStyles.title, {color: Colors.darkBrown}]}>
+          <Text style={GlobalStyles.title}>{placeName}</Text>
+          <Text style={[GlobalStyles.text, {color: Colors.darkBrown}]}>
             {item.title}
           </Text>
           <Text>

@@ -100,7 +100,7 @@ export const GlobalStyles = StyleSheet.create({
     height: 300,
   },
   title: {
-    fontSize: 18,
+    fontSize: 19,
     fontWeight: 'bold',
     color: Colors.primary,
     marginVertical: 5,

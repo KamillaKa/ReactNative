@@ -1,3 +1,4 @@
+import React, {useEffect, useState} from 'react';
 import {Card, Text, ListItem, Icon} from '@rneui/themed';
 import {Video, ResizeMode} from 'expo-av';
 import {
@@ -7,6 +8,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from 'react-native';
+import {usePlaces} from '../hooks/apiHooks';
 import {MediaItemWithOwner} from '../types/DBTypes';
 import Comments from '../components/Comments';
 import {GlobalStyles, Colors} from '../styles/styles';
@@ -14,6 +16,15 @@ import {GlobalStyles, Colors} from '../styles/styles';
 const Single = ({route}: any) => {
   const item: MediaItemWithOwner = route.params;
   const [fileType, fileFormat] = item.media_type.split('/');
+  const places = usePlaces();
+  const [placeName, setPlaceName] = useState<string>('');
+
+  useEffect(() => {
+    const place = places.find((p) => p.place_id === item.place_id);
+    if (place) {
+      setPlaceName(place.place_name);
+    }
+  }, [places, item.place_id]);
 
   return (
     <KeyboardAvoidingView
@@ -37,8 +48,8 @@ const Single = ({route}: any) => {
                 resizeMode={ResizeMode.CONTAIN}
               />
             )}
-            <Text style={[GlobalStyles.text, {marginLeft: 10}]}>
-              {item.place_name}
+            <Text style={[GlobalStyles.title, {marginLeft: 13}]}>
+              {placeName}
             </Text>
             <Card.FeaturedSubtitle
               style={[
