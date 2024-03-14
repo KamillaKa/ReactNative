@@ -5,6 +5,7 @@ import {
 } from '@react-navigation/native';
 import {Button, Card, Icon, ListItem} from '@rneui/base';
 import {useUserContext} from '../hooks/ContextHooks';
+import {GlobalStyles} from '../styles/styles';
 
 const Profile = () => {
   const {handleLogout, user} = useUserContext();
@@ -12,8 +13,11 @@ const Profile = () => {
   return (
     <>
       {user && (
-        <Card>
-          <Card.Image source={{uri: 'https://placekitten.com/300/300'}} />
+        <Card containerStyle={GlobalStyles.card}>
+          <Card.Image
+            source={{uri: 'https://placekitten.com/300/300'}}
+            style={{borderRadius: 10}}
+          />
           <ListItem>
             <Icon name="person" />
             <ListItem.Title>{user.username}</ListItem.Title>
@@ -23,12 +27,15 @@ const Profile = () => {
             <ListItem.Title>{user.email}</ListItem.Title>
           </ListItem>
           <Card.Divider />
-          <Button onPress={() => navigation.navigate('My Files')}>
+          <Button
+            onPress={() => navigation.navigate('My Files')}
+            buttonStyle={GlobalStyles.button}
+          >
             My Files &nbsp;
             <Icon name="folder" color="white" />
-          </Button>
+          </Button >
           <Card.Divider />
-          <Button onPress={handleLogout}>
+          <Button onPress={handleLogout} buttonStyle={GlobalStyles.button}>
             Logout &nbsp;
             <Icon name="logout" color="white" />
           </Button>

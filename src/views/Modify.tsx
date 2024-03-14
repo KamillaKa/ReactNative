@@ -1,7 +1,13 @@
 import {Controller, useForm} from 'react-hook-form';
 import {Button, Card, Input} from '@rneui/base';
 import {useEffect} from 'react';
-import {TouchableOpacity, Keyboard, ScrollView, Alert} from 'react-native';
+import {
+  TouchableOpacity,
+  Keyboard,
+  ScrollView,
+  Alert,
+  Text,
+} from 'react-native';
 import {Video} from 'expo-av';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
@@ -12,6 +18,7 @@ import {
 import {useMedia} from '../hooks/apiHooks';
 import {useUpdateContext} from '../hooks/UpdateHook';
 import {MediaItem, MediaItemWithOwner} from '../types/DBTypes';
+import {GlobalStyles} from '../styles/styles';
 
 const Modify = ({route}: any) => {
   const item: MediaItemWithOwner = route.params;
@@ -66,7 +73,7 @@ const Modify = ({route}: any) => {
         style={{flex: 1}}
         activeOpacity={1}
       >
-        <Card>
+        <Card containerStyle={GlobalStyles.card}>
           {item && item.media_type.includes('video') ? (
             <Video
               source={{uri: 'http:' + item.filename}}
@@ -75,19 +82,20 @@ const Modify = ({route}: any) => {
             />
           ) : (
             <Card.Image
-              style={{aspectRatio: 1, height: 300}}
+              style={{aspectRatio: 1, height: 300, borderRadius: 10}}
               source={{
                 uri: 'http:' + item.filename,
               }}
             />
           )}
           <Card.Divider />
+          <Text style={[GlobalStyles.text]}>Title</Text>
           <Controller
             control={control}
             rules={{
               required: {
                 value: true,
-                message: 'Title tarttis laittaa',
+                message: 'Title is required',
               },
             }}
             render={({field: {onChange, onBlur, value}}) => (
@@ -97,11 +105,13 @@ const Modify = ({route}: any) => {
                 onChangeText={onChange}
                 value={value}
                 errorMessage={errors.title?.message}
+                inputContainerStyle={GlobalStyles.input}
               />
             )}
             name="title"
           />
 
+          <Text style={[GlobalStyles.text]}>Description</Text>
           <Controller
             control={control}
             rules={{
@@ -112,18 +122,26 @@ const Modify = ({route}: any) => {
                 placeholder="Description"
                 onBlur={onBlur}
                 onChangeText={onChange}
-                value={value!} // hölmö virheilmoitus, laitoin !
+                value={value!}
                 errorMessage={errors.description?.message}
                 multiline={true}
                 numberOfLines={5}
-                style={{height: 120, textAlignVertical: 'top'}}
+                inputContainerStyle={GlobalStyles.input}
               />
             )}
             name="description"
           />
-          <Button title="Modify" onPress={handleSubmit(doModify)} />
+          <Button
+            title="Modify"
+            onPress={handleSubmit(doModify)}
+            buttonStyle={GlobalStyles.button}
+          />
           <Card.Divider />
-          <Button title="Reset" onPress={resetForm} />
+          <Button
+            title="Reset"
+            onPress={resetForm}
+            buttonStyle={GlobalStyles.button}
+          />
         </Card>
       </TouchableOpacity>
     </ScrollView>

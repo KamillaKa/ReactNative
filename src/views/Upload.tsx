@@ -19,6 +19,7 @@ import {
 import RNPickerSelect from 'react-native-picker-select';
 import {useFile, useMedia, usePlaces} from '../hooks/apiHooks';
 import {useUpdateContext} from '../hooks/UpdateHook';
+import {GlobalStyles} from '../styles/styles';
 
 const Upload = () => {
   const [image, setImage] = useState<ImagePicker.ImagePickerResult | null>(
@@ -123,11 +124,11 @@ const Upload = () => {
   return (
     <ScrollView>
       <TouchableOpacity
-        style={styles.container}
+        style={GlobalStyles.container}
         onPress={() => Keyboard.dismiss()}
         activeOpacity={1}
       >
-        <Card>
+        <Card containerStyle={GlobalStyles.card}>
           {image && image.assets![0].mimeType?.includes('video') ? (
             <Video
               source={{uri: image.assets![0].uri}}
@@ -168,6 +169,7 @@ const Upload = () => {
             name="place_id"
           />
           <Card.Divider />
+          <Text style={[GlobalStyles.text]}>Title</Text>
           <Controller
             control={control}
             rules={{
@@ -188,6 +190,7 @@ const Upload = () => {
             name="title"
           />
 
+          <Text style={[GlobalStyles.text]}>Description</Text>
           <Controller
             control={control}
             rules={{
@@ -201,13 +204,13 @@ const Upload = () => {
                 value={value}
                 errorMessage={errors.description?.message}
                 multiline={true}
-                numberOfLines={5}
-                style={{height: 120, textAlignVertical: 'top'}}
+                numberOfLines={3}
               />
             )}
             name="description"
           />
           <Card.Divider />
+          <Text style={GlobalStyles.text}>Rating</Text>
           <Controller
             control={control}
             render={({field: {onChange, value}}) => (
@@ -221,11 +224,23 @@ const Upload = () => {
             name="rating"
           />
           <Card.Divider />
-          <Button title="Choose media" onPress={pickImage} />
+          <Button
+            title="Choose media"
+            onPress={pickImage}
+            buttonStyle={GlobalStyles.button}
+          />
           <Card.Divider />
-          <Button title="Upload" onPress={handleSubmit(doUpload)} />
+          <Button
+            title="Upload"
+            onPress={handleSubmit(doUpload)}
+            buttonStyle={GlobalStyles.button}
+          />
           <Card.Divider />
-          <Button title="Reset" onPress={resetForm} />
+          <Button
+            title="Reset"
+            onPress={resetForm}
+            buttonStyle={[GlobalStyles.button, {backgroundColor: 'red'}]}
+          />
         </Card>
       </TouchableOpacity>
     </ScrollView>

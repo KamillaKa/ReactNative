@@ -4,6 +4,7 @@ import {Text} from '@rneui/base';
 import {useMedia} from '../hooks/apiHooks';
 import MediaListItem from '../components/MediaListItem';
 import {useUserContext} from '../hooks/ContextHooks';
+import {GlobalStyles} from '../styles/styles';
 
 const MyFiles = ({navigation}: {navigation: NavigationProp<ParamListBase>}) => {
   const {mediaArray} = useMedia();
@@ -21,9 +22,17 @@ const MyFiles = ({navigation}: {navigation: NavigationProp<ParamListBase>}) => {
   return (
     <>
       <FlatList
+        style={GlobalStyles.container}
         data={myMedia}
         renderItem={({item}) => (
-          <MediaListItem navigation={navigation} item={item} />
+          <MediaListItem
+            navigation={navigation}
+            item={item}
+            containerStyle={{
+              backgroundColor: '#fff',
+              borderRadius: 10,
+            }}
+          />
         )}
       />
     </>
