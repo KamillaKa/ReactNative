@@ -67,7 +67,7 @@ const Upload = () => {
         const newInput = {
           ...inputs,
           rating: +inputs.rating,
-          place_id: 1,
+          place_id: parseInt(inputs.place_id, 10),
         };
         const fileResponse = await postExpoFile(image.assets![0].uri, token);
         console.log('fileResponse', fileResponse);
@@ -119,8 +119,6 @@ const Upload = () => {
 
   const places = usePlaces();
 
-  const [selectedTags, setSelectedTags] = useState([]);
-
   return (
     <ScrollView>
       <TouchableOpacity
@@ -157,7 +155,10 @@ const Upload = () => {
             }}
             render={({field: {onChange, value}}) => (
               <RNPickerSelect
-                onValueChange={onChange}
+                onValueChange={(newValue) => {
+                  console.log('Selected place_id:', newValue); // This will log the selected place_id
+                  onChange(newValue); // Continue with the original onChange functionality
+                }}
                 items={places.map((place) => ({
                   label: place.place_name,
                   value: place.place_id,

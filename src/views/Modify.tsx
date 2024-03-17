@@ -140,7 +140,7 @@ const Modify = ({route}: any) => {
           <Button
             title="Reset"
             onPress={resetForm}
-            buttonStyle={GlobalStyles.button}
+            buttonStyle={[GlobalStyles.button, {backgroundColor: 'red'}]}
           />
         </Card>
       </TouchableOpacity>

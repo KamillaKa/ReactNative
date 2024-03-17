@@ -78,7 +78,7 @@ const MediaListItem = ({item, navigation}: Props) => {
                 >
                   <Icon type="ionicon" name="create" color="white" />
                 </Button>
-                <Button
+                {/* <Button
                   buttonStyle={GlobalStyles.smallButton}
                   color="error"
                   onPress={() => {
@@ -87,7 +87,7 @@ const MediaListItem = ({item, navigation}: Props) => {
                 >
                   {' '}
                   <Icon type="ionicon" name="trash" color="white" />
-                </Button>
+                </Button> */}
               </>
             ) : (
               <ListItem.Content>
