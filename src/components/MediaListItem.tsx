@@ -44,7 +44,7 @@ const MediaListItem = ({item, navigation}: Props) => {
         <Avatar
           size={50}
           icon={{
-            name: item.media_type.includes('image') ? 'image' : 'film',
+            name: 'paw',
             type: 'ionicon',
             color: '#333',
           }}
