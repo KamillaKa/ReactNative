@@ -7,7 +7,7 @@ import {View} from 'react-native';
 import {useUserContext} from '../hooks/ContextHooks';
 import {Comment, MediaItemWithOwner} from '../types/DBTypes';
 import {useComment} from '../hooks/apiHooks';
-import {GlobalStyles, Colors} from '../styles/styles';
+import {GlobalStyles} from '../styles/styles';
 
 const Comments = ({item}: {item: MediaItemWithOwner}) => {
   const [comments, setComments] = useState<

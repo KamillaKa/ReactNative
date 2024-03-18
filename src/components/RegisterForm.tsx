@@ -85,12 +85,11 @@ const RegisterForm = ({handleToggle}: {handleToggle: () => void}) => {
             control={control}
             rules={{
               maxLength: 100,
-              // pattern: {
-              //   value:
-              //     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{5,}$/,
-              //   message:
-              //     'Password must contain at least 5 characters, 1 special character (@, $, !, %, *, #, ?, &), and 1 number',
-              // },
+              pattern: {
+                value: /^(?=.*\d)[A-Za-z\d]{5,}$/,
+                message:
+                  'Password must contain at least 5 characters and 1 number',
+              },
               required: {value: true, message: 'Password is required'},
             }}
             render={({field: {onChange, onBlur, value}}) => (
@@ -100,6 +99,7 @@ const RegisterForm = ({handleToggle}: {handleToggle: () => void}) => {
                 onBlur={onBlur}
                 onChangeText={onChange}
                 value={value}
+                autoCapitalize="none"
                 errorMessage={errors.password?.message}
                 containerStyle={{paddingHorizontal: 0, width: '100%'}}
                 inputContainerStyle={GlobalStyles.input}
@@ -126,6 +126,7 @@ const RegisterForm = ({handleToggle}: {handleToggle: () => void}) => {
                 onBlur={onBlur}
                 onChangeText={onChange}
                 value={value}
+                autoCapitalize="none"
                 errorMessage={errors.confirmPassword?.message}
                 containerStyle={{paddingHorizontal: 0, width: '100%'}}
                 inputContainerStyle={GlobalStyles.input}

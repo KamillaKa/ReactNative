@@ -15,7 +15,7 @@ const Profile = () => {
       {user && (
         <Card containerStyle={GlobalStyles.card}>
           <Card.Image
-            source={{uri: 'https://placekitten.com/300/300'}}
+            source={require('../../assets/pfp.jpg')}
             style={{borderRadius: 10}}
           />
           <ListItem>
@@ -33,7 +33,7 @@ const Profile = () => {
           >
             My Files &nbsp;
             <Icon name="folder" color="white" />
-          </Button >
+          </Button>
           <Card.Divider />
           <Button onPress={handleLogout} buttonStyle={GlobalStyles.button}>
             Logout &nbsp;

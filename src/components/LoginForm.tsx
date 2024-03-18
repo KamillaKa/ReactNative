@@ -70,6 +70,7 @@ const LoginForm = () => {
                 onBlur={onBlur}
                 onChangeText={onChange}
                 value={value}
+                autoCapitalize="none"
                 errorMessage={errors.password?.message}
                 containerStyle={{paddingHorizontal: 0, width: '100%'}}
                 inputContainerStyle={GlobalStyles.input}
