@@ -65,4 +65,9 @@ This setup organizes everything the media sharing app needs, from user informati
 
 - Register and Login
 - Upload reviews which includes image, parks name, title, description and the review
+- Modify your uploads
 - Like and Comment
+
+## More
+### Libraries
+@react-native-async-storage, @react-native-picker, @react-navigation, expo, expo-av, expo-image-picker, expo-status-bar, react-hook-form, react-native-picker-select

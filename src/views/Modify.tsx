@@ -41,6 +41,7 @@ const Modify = ({route}: any) => {
 
   const resetForm = () => {
     reset(initValues);
+    console.log(initValues);
   };
 
   const doModify = async (inputs: Pick<MediaItem, 'title' | 'description'>) => {
